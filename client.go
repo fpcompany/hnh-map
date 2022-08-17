@@ -211,7 +211,19 @@ func (m *Map) uploadMarkers(rw http.ResponseWriter, req *http.Request) {
 				continue
 			}
 			if mraw.Image == "" {
-				mraw.Image = "gfx/terobjs/mm/custom"
+				var imageName = mraw.Name
+				switch {
+				case imageName == "Cave":
+					mraw.Image = "gfx/hud/nmap/cave"
+				case imageName == "Minehole":
+					mraw.Image = "gfx/hud/nmap/minehole"
+				case imageName == "Ladder":
+					mraw.Image = "gfx/hud/nmap/ladder"
+				case imageName == "Exit":
+					mraw.Image = "gfx/hud/nmap/cave"
+				default:
+					mraw.Image = "gfx/terobjs/mm/custom"
+				}
 			}
 			id, err := idB.NextSequence()
 			if err != nil {
