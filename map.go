@@ -50,7 +50,7 @@ func (m *Map) getMarkers(rw http.ResponseWriter, req *http.Request) {
 		"gfx/terobjs/mm/clamreef": true,
 		"gfx/terobjs/mm/amberwash": true,
 		"gfx/terobjs/mm/flintwash": true,
-		"gfx/terobjs/mm/spawningbad": true,
+		"gfx/terobjs/mm/spawningbed": true,
 	}
 
 
