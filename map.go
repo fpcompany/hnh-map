@@ -42,6 +42,18 @@ func (m *Map) getMarkers(rw http.ResponseWriter, req *http.Request) {
 		json.NewEncoder(rw).Encode([]interface{}{})
 		return
 	}
+
+		// List of images to skip
+	skipImages := map[string]bool{
+		"gfx/terobjs/mm/burrow.png": true,
+		"gfx/terobjs/mm/coralreef.png": true,
+		"gfx/terobjs/mm/clamreef.png": true,
+		"gfx/terobjs/mm/amberwash.png": true,
+		"gfx/terobjs/mm/flintwash.png": true,
+		"gfx/terobjs/mm/spawningbad.png": true,
+	}
+
+
 	markers := []FrontendMarker{}
 	m.db.View(func(tx *bbolt.Tx) error {
 		b := tx.Bucket([]byte("markers"))
@@ -58,13 +70,23 @@ func (m *Map) getMarkers(rw http.ResponseWriter, req *http.Request) {
 		}
 		return grid.ForEach(func(k, v []byte) error {
 			m := Marker{}
-			json.Unmarshal(v, &m)
+			if err := json.Unmarshal(v, &m); err != nil {
+				return err
+			}
+
+			// Skip if the image is in the skip list
+			if skipImages[m.Image] {
+				return nil
+			}
+
 			graw := grids.Get([]byte(m.GridID))
 			if graw == nil {
 				return nil
 			}
 			g := GridData{}
-			json.Unmarshal(graw, &g)
+			if err := json.Unmarshal(graw, &g); err != nil {
+				return err
+			}
 			markers = append(markers, FrontendMarker{
 				Image:  m.Image,
 				Hidden: m.Hidden,
