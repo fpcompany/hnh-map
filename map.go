@@ -45,12 +45,12 @@ func (m *Map) getMarkers(rw http.ResponseWriter, req *http.Request) {
 
 		// List of images to skip
 	skipImages := map[string]bool{
-		"gfx/terobjs/mm/burrow.png": true,
-		"gfx/terobjs/mm/coralreef.png": true,
-		"gfx/terobjs/mm/clamreef.png": true,
-		"gfx/terobjs/mm/amberwash.png": true,
-		"gfx/terobjs/mm/flintwash.png": true,
-		"gfx/terobjs/mm/spawningbad.png": true,
+		"gfx/terobjs/mm/burrow": true,
+		"gfx/terobjs/mm/coralreef": true,
+		"gfx/terobjs/mm/clamreef": true,
+		"gfx/terobjs/mm/amberwash": true,
+		"gfx/terobjs/mm/flintwash": true,
+		"gfx/terobjs/mm/spawningbad": true,
 	}
 
 
